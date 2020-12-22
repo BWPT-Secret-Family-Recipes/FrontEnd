@@ -19,6 +19,7 @@ border:2px solid blue;
 const SignUp = () => {
 
     const [userInfo,setUserInfo] = useState({
+        id:Date.now(),
         username:'',
         email:'',
         password:''
@@ -40,6 +41,7 @@ const SignUp = () => {
         })
         .catch(err => {
             console.log('ol: SignUp.js err response', err.response)
+            setErr(err.response)
         })
     }
 
