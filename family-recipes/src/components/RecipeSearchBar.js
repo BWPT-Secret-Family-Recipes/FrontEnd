@@ -39,7 +39,7 @@ const RecipeSearchBar = ({data}) => {
                   name="search"
                   value={query}
                   onChange={handleOnSearch}
-                  placeholder="Search for a class"
+                  placeholder="Search for a recipe"
               />
               </FormGroup>
             </Form>
