@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import '../homepage.css'
+import RecipeSearchBar from './RecipeSearchBar'
 
 const HomePage = () => {
     
@@ -16,16 +17,8 @@ const HomePage = () => {
         })
     },[])
     return (
-        <div className="recipe-container">
-            <h1 style={{color:'white'}}>View Our Communities Recipes</h1>
-            <div className="row_recipes">
-                {recipes.map(recipe=>{
-                    return <div className="recipe-card" key={recipe.id}>
-                        <h2>{recipe.title}</h2>
-                        <button className="recipe-button">View Recipe</button>
-                    </div>
-                })}
-            </div>
+        <div>
+            <RecipeSearchBar data={recipes}/>
         </div>
     )
 }
