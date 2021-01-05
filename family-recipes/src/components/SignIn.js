@@ -16,7 +16,6 @@ const formSchema = yup.object().shape({
 
 
 const SignIn = () => {
-    // const formData = { name: "", password: ""}
     const [ user , setUser] = useState({ name: "", password: ""});
     const [errors , setErrors] = useState({name: "", password: ""});
     const [disabled , setDisabled] = useState(true);
@@ -43,7 +42,7 @@ const SignIn = () => {
 
     const submitForm  = (event) => {
         event.preventDefault();
-         axios.post("https://reqres.in/api/users" , user)
+         axios.post("https://ptbw191-secretfamilyrecipes.herokuapp.com/api/auth/login" , user)
             .then( res => {
                 console.log("success" , res.data);
                 setUser({ name: "", password: ""});
