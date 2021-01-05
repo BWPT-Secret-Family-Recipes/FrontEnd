@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import {useHistory, useHIstory} from 'react-router-dom'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 import * as yup from 'yup';
 
 const formSchema = yup.object().shape({
@@ -11,14 +13,16 @@ const formSchema = yup.object().shape({
     password: yup
         .string()
         .required("Must be valid password")
-        .min(6 , "Password Must be at least 6 characters")
+        .min(5, "Password Must be at least 5 characters")
 })
 
 
 const SignIn = () => {
-    const [ user , setUser] = useState({ name: "", password: ""});
-    const [errors , setErrors] = useState({name: "", password: ""});
+    const [ user , setUser] = useState({ username: "", password: ""});
+    const [errors , setErrors] = useState({username: "", password: ""});
     const [disabled , setDisabled] = useState(true);
+
+    const history = useHistory();
     
    
     const setFormErrors = (name , value) => {
@@ -27,25 +31,20 @@ const SignIn = () => {
             .catch( err => setErrors( {...errors , [name]: err.errors[0] } ))
     }
     
-    const handleChange = event => {
-        const { name, value} = event.target;
-        
-        setFormErrors(name , value);
-        setUser({...user , [name]: value});
-        
+    const handleChange = e => {
+        e.persist();
+        setUser({...user,[e.target.name]:e.target.value})
     }
 
-      useEffect( () =>{
-        formSchema.isValid(user)
-        .then(valid => {setDisabled(!valid) })
-    }, [user] )
 
     const submitForm  = (event) => {
         event.preventDefault();
-         axios.post("https://ptbw191-secretfamilyrecipes.herokuapp.com/api/auth/login" , user)
+         axiosWithAuth().post("https://ptbw191-secretfamilyrecipes.herokuapp.com/api/auth/login" , user)
             .then( res => {
                 console.log("success" , res.data);
-                setUser({ name: "", password: ""});
+                localStorage.setItem('token',res.data.payload)
+                setUser({username:'',password:''})
+                history.push('/my-profile')
             })
             
             .catch(err => console.log(err, "submission failed"))
@@ -59,11 +58,12 @@ const SignIn = () => {
                 <p>{errors.name}</p>
                 <label htmlFor = "username">Username</label>
                     <input
-                    id="name"
-                    name = "name"
+                    id="username"
+                    name = "username"
                     type = "text"
                     placeholder = "Enter Username"
                     onChange = {handleChange}
+                    value= {user.username}
                     />
                 <p>{errors.password}</p>
                 <label htmlFor = "password">Password</label>
@@ -72,8 +72,9 @@ const SignIn = () => {
                     name = "password"
                     type = "password"
                     onChange = {handleChange}
+                    value={user.password}
                     />
-                <button disabled = {disabled} type = "submit">Sign In</button>
+                <button type = "submit">Sign In</button>
             </form>
         </div>
     )

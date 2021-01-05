@@ -1,0 +1,64 @@
+.recipe-container{
+   width: 90%;
+   height:100%;
+   margin-top: 30px;
+   margin-left: 75px;
+}
+
+.row_recipes{
+    color:white;
+    display:flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    width:100%;
+}
+
+.recipe-card{
+    border:10px solid white;
+    margin-bottom: 30px;
+    webkit-appearance: none;
+        align-items: flex-start;
+        background-attachment: scroll;
+        background-clip: border-box;
+        background-color: #FFA500;
+        background-origin: padding-box;
+        background-size: auto;
+        border-bottom-color: black;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-image-outset: 0px;
+        border-image-repeat: stretch;
+        border-image-slice: 100%;
+        border-image-source: none;
+        border-image-width: 1;
+        border-left-color: black;
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-right-color: black;
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-top-color: black;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        box-shadow: #80B2FF 0px 1px 1px 0px inset;
+}
+
+.recipe-card:hover {
+    transform: scale(1.08);
+    opacity: 1;
+    background-color:cadetblue;
+    color:white;
+  }
+
+.recipe-button{
+    margin-bottom: 10px;
+}
+
+.recipe-button:hover{
+    background-color: green ;
+    color:honeydew;
+}
