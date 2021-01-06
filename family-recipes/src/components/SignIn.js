@@ -37,24 +37,19 @@ const SignIn = () => {
     }
 
 
-    const submitForm  = (event) => {
-        event.preventDefault();
-         axiosWithAuth().post("https://ptbw191-secretfamilyrecipes.herokuapp.com/api/auth/login" , user)
-            .then( res => {
-                console.log("success" , res.data);
-                localStorage.setItem('token',res.data.payload)
-                setUser({username:'',password:''})
-                history.push('/my-profile')
-            })
-            
-            .catch(err => console.log(err, "submission failed"))
+    const login = (e) => {
+        e.preventDefault();
+        axios.post("https://ptbw191-secretfamilyrecipes.herokuapp.com/api/auth/login",user)
+        .then(res => {
+            console.log(res)
+        })
     }
    
 
     return (
         <div>
             <h1>Signing in</h1>
-            <form onSubmit = {submitForm}>
+            <form onSubmit = {login}>
                 <p>{errors.name}</p>
                 <label htmlFor = "username">Username</label>
                     <input

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
 
 
@@ -31,6 +32,8 @@ const Button = styled.button`
 
 
 const Profile = () => {
+    const {id} = useParams();
+    console.log(id)
     const [post , setPost] = useState({
         title:'',
         ingredients:'',
@@ -47,6 +50,7 @@ const Profile = () => {
         e.preventDefault();
     } 
     
+    //1609913190256
     
 
     return (
