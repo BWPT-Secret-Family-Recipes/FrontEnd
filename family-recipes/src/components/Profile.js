@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 
 
@@ -40,6 +42,18 @@ const Profile = () => {
         instructions:'',
         category_id:"",
         user_id:""
+    })
+
+    const [userRecipes,setUserRecipes] = useState([])
+
+    useEffect(()=>{
+        axiosWithAuth().get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/users/${id}/recipes`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     })
 
     const handleChange = e =>{
