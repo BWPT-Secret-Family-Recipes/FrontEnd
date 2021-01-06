@@ -31,14 +31,20 @@ const Button = styled.button`
 
 
 const Profile = () => {
-    const [post , setPost] = useState({title:"", recipe:""});
+    const [post , setPost] = useState({
+        title:'',
+        ingredients:'',
+        instructions:'',
+        category_id:"",
+        user_id:""
+    })
+
     const handleChange = e =>{
          setPost({...post, [e.target.name]: e.target.value})
         }
 
     const submitForm = e => {
         e.preventDefault();
-       console.log(post)
     } 
     
     
@@ -64,6 +70,22 @@ const Profile = () => {
                 value={post.recipe}
                 onChange = {handleChange}
                 placeholder='Enter Recipe'
+                />
+                <input
+                id = 'instructions'
+                name='instructions'
+                type='text'
+                value={post.instructions}
+                onChange = {handleChange}
+                placeholder='Enter instructions'
+                />
+                <input
+                id = 'ingredients'
+                name='ingredients'
+                type='text'
+                value={post.ingredients}
+                onChange = {handleChange}
+                placeholder='Enter Recipe Name'
                 />
                 <Button type='submit' >Add</Button>
                 <Button type='reset' >Cancel</Button>
