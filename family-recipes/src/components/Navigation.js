@@ -8,12 +8,19 @@ width: 10%;
 height: auto;
 
 `
+
+const Navstyle = {
+    padding: '1rem auto',
+    margin: '1rem auto',
+
+
+}
 const Navigation = () => {
     const logout = () => {
         localStorage.removeItem('token')
     }
     return (
-        <Navbar color='dark'>
+        <Navbar style={Navstyle}>
             <Img src = {logo} alt = "secret family recipes logo"></Img>
             <Nav>
                 <NavLink style={{color:'white'}}href="/">Home</NavLink>
