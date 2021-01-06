@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
-
+import RecipeSearchBar from './RecipeSearchBar';
 
 
 const RecipeForm = styled.form`
@@ -30,49 +31,74 @@ const Button = styled.button`
 `
 
 
+
 const Profile = () => {
-    const [post , setPost] = useState({title:"", recipe:""});
+    const [post , setPost] = useState({title:"", ingredients:"", instructions: "" });
+
+   
+
     const handleChange = e =>{
-         setPost({...post, [e.target.name]: e.target.value})
-        }
+        setPost({...post, [e.target.name]: e.target.value})
+       }
 
-    const submitForm = e => {
-        e.preventDefault();
-       console.log(post)
-    } 
+   
+  
+   const submitForm = e => {
+       e.preventDefault();
+      console.log(post)
     
-    
+   } 
+   
+   
 
-    return (
-        <div>
-            <h2>Write Your Own Recipes</h2>
-            <RecipeForm onSubmit = {submitForm}>
-                <label htmlFor = 'title'>Title</label>
-                <input
-                id = 'title'
-                name='title'
-                type='text'
-                value={post.title}
-                onChange = {handleChange}
-                placeholder='Enter Recipe Name'
-                />
-                 <label htmlFor = 'recipe'>Recipe</label>
-                <textarea
-                id = 'recipe'
-                name='recipe'
-                type='textarea'
-                value={post.recipe}
-                onChange = {handleChange}
-                placeholder='Enter Recipe'
-                />
-                <Button type='submit' >Add</Button>
-                <Button type='reset' >Cancel</Button>
-            </RecipeForm>
-        
-        </div>
-    )
+   return (
+      
+       
+       <div>
+           <h2>Write Your Own Recipes</h2>
+           <RecipeForm onSubmit = {submitForm}>
+               <label htmlFor = 'title'>Title</label>
+               <input
+               id = 'title'
+               name='title'
+               type='text'
+               value={post.title}
+               onChange = {handleChange}
+               placeholder='Enter Recipe Name'
+               />
+                <label htmlFor = 'ingredients'>Ingredients</label>
+               <input
+               id = 'ingredients'
+               name='ingredients'
+               type='text'
+               value={post.ingredients}
+               onChange = {handleChange}
+               placeholder='Enter ingredients'
+               />
+                <label htmlFor = 'instructions'>instructions</label>
+               <textarea
+               id = 'instructions'
+               name='instructions'
+               type='text'
+               value={post.instructions}
+               onChange = {handleChange}
+               placeholder='Enter instructions'
+               />
+               <Button type='submit' >Add</Button>
+               <Button type='reset' >Cancel</Button>
+           </RecipeForm>
+       
+       </div>
+       
+   )
 }
+
+   
+
+
 
 
 export default Profile;
+
+
 
