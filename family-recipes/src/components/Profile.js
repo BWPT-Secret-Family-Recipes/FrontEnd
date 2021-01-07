@@ -45,10 +45,12 @@ const Profile = () => {
 
     const [userRecipes,setUserRecipes] = useState([])
 
+    const [recipes,setRecipes]= useState([])
+
     useEffect(()=>{
         axiosWithAuth().get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/users/${id}/recipes`)
         .then(res => {
-            console.log(res)
+            setRecipes(res.data)
         })
         .catch(err => {
             console.log(err)
@@ -86,7 +88,18 @@ const Profile = () => {
                 <Button type='submit' >Add</Button>
                 <Button type='reset' >Cancel</Button>
             </RecipeForm>
-        
+
+            <div className="recipe-container">
+            <h1 style={{color:'white'}}>View Your Recipes</h1>
+            <div className="row_recipes">
+                {recipes.map(recipe=>{
+                    return <div className="recipe-card" key={recipe.id}>
+                        <h2>{recipe.title}</h2>
+                        <button className="recipe-button">Edit Recipe</button>
+                    </div>
+                })}
+            </div>
+            </div>
         </div>
     )
 }
