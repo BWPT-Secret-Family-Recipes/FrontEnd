@@ -1,7 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import styled from 'styled-components';
 import RecipeSearchBar from './RecipeSearchBar';
+=======
+import {useParams} from 'react-router-dom'
+import styled from 'styled-components';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
+import RecipeModal from './RecipeModal';
+>>>>>>> f722275b9cd6436e8f49cd1741b2bd8203583cdc
 
 
 const RecipeForm = styled.form`
@@ -30,27 +37,83 @@ const Button = styled.button`
 
 `
 
+const initialRecipe = {
+    title:'',
+    ingredients:'',
+    instructions:'',
+    category_id:''
+}
 
 
 const Profile = () => {
-    const [post , setPost] = useState({title:"", ingredients:"", instructions: "" });
+    const {id} = useParams();
+    const [post , setPost] = useState({
+        title:'',
+        ingredients:'',
+        instructions:'',
+        category_id:'',
+        user_id: id,
+    })
 
-   
+    const [userRecipes,setUserRecipes] = useState([])
+
+    const [recipes,setRecipes]= useState([])
+
+    const[recipeToEdit,setRecipeToEdit]= useState(initialRecipe)
+
+    useEffect( ()=>{ 
+        const fetchRecipes = async() => {
+            const recipes = await axiosWithAuth().get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/users/${id}/recipes`)
+            .then(res=>{
+                setRecipes(res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        fetchRecipes()
+    },[recipes])
 
     const handleChange = e =>{
-        setPost({...post, [e.target.name]: e.target.value})
-       }
+         e.persist();
+         setPost({...post, [e.target.name]: e.target.value})
+        }
 
-   
-  
-   const submitForm = e => {
-       e.preventDefault();
-      console.log(post)
+    const submitForm = e => {
+        e.preventDefault();
+        axiosWithAuth().post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
+        .then(res => {
+            console.log('You have created the recipe: ',res)
+            setUserRecipes(...userRecipes,post)
+        })
+        .catch(err => {
+            console.log('You were unable to create the receipe because: ', err.response)
+        })
+    } 
+    
+    //1609913190256
+
+    const deleteRecipe = (recipe) => {
+        // /api/recipe/:id
+        axiosWithAuth().delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
+        .then(res=>{
+            setRecipes(recipes.filter(recipe=>{
+                if(recipe.id !== recipeToEdit.id){
+                    return recipe
+                }
+            }))
+            
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
     
    } 
    
    
 
+<<<<<<< HEAD
    return (
       
        
@@ -91,6 +154,37 @@ const Profile = () => {
        </div>
        
    )
+=======
+    return (
+        <div>
+            <h2>Write Your Own Recipes</h2>
+            <RecipeForm onSubmit = {submitForm}>
+                <input type="text" name="title" value={post.title} onChange={handleChange}/>
+                <input type="text" name="ingredients" value={post.ingredients} onChange={handleChange}/>
+                <input type="text" name="instructions" value={post.instructions} onChange={handleChange}/>
+                <input type="number" name="category_id" value={post.category_id} onChange={handleChange}/>
+                <Button type='submit' >Add</Button>
+                <Button type='reset' >Cancel</Button>
+            </RecipeForm>
+
+            <div className="recipe-container">
+            <h1 style={{color:'white'}}>View Your Recipes</h1>
+            <div className="row_recipes">
+                {recipes.map(recipe=>{
+                    return <div className="recipe-card" key={recipe.id}>
+                        <h2>{recipe.title}</h2>
+                        <RecipeModal data={recipe}>Edit Recipe</RecipeModal>
+                        <button className="recipe-button" onClick={e=>{
+                            e.stopPropagation();
+                            deleteRecipe(recipe)
+                        }}>Delete Recipe</button>
+                    </div>
+                })}
+            </div>
+            </div>
+        </div>
+    )
+>>>>>>> f722275b9cd6436e8f49cd1741b2bd8203583cdc
 }
 
    

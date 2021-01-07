@@ -6,14 +6,12 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   text-align: center;
-  border:2px solid red;
   margin-top:3%;
   width:100%;
 `
 
 const FormContainer = styled.div`
 width:90%;
-border:2px solid blue;
 `
 
 const SignUp = () => {
