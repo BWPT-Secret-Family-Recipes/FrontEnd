@@ -6,16 +6,20 @@ import RecipeSearchBar from './RecipeSearchBar'
 const HomePage = () => {
     
     const [recipes,setRecipes] = useState([])
-    useEffect(()=>{
-        axios.get("https://ptbw191-secretfamilyrecipes.herokuapp.com/")
-        .then(res=>{
-            console.log("ol: homepage.js: axios get recipes", res.data)
-            setRecipes(res.data)
-        })
-        .catch(err => {
-            console.log("error message:",err.response)
-        })
-    },[])
+    
+    useEffect( ()=>{ 
+        const fetchRecipes = async() => {
+            const recipesHome = await axios.get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/`)
+            .then(res=>{
+                setRecipes(res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        fetchRecipes()
+    },[recipes])
+
     return (
         <div>
             <RecipeSearchBar data={recipes}/>
