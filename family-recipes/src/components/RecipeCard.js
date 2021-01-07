@@ -10,6 +10,7 @@ const RecipeCard = (props) => {
                 {props.data.map(recipe=>{
                     return <div className="recipe-card" key={recipe.id}>
                         <h2>{recipe.title}</h2>
+                        {/* <img src="?"/> */}
                         <button className="recipe-button">View Recipe</button>
                     </div>
                 })}
