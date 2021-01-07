@@ -1,14 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-<<<<<<< HEAD
-import styled from 'styled-components';
-import RecipeSearchBar from './RecipeSearchBar';
-=======
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import RecipeModal from './RecipeModal';
->>>>>>> f722275b9cd6436e8f49cd1741b2bd8203583cdc
 
 
 const RecipeForm = styled.form`
@@ -108,53 +103,10 @@ const Profile = () => {
             console.log(err)
         })
     }
-    
-   } 
+     
    
    
 
-<<<<<<< HEAD
-   return (
-      
-       
-       <div>
-           <h2>Write Your Own Recipes</h2>
-           <RecipeForm onSubmit = {submitForm}>
-               <label htmlFor = 'title'>Title</label>
-               <input
-               id = 'title'
-               name='title'
-               type='text'
-               value={post.title}
-               onChange = {handleChange}
-               placeholder='Enter Recipe Name'
-               />
-                <label htmlFor = 'ingredients'>Ingredients</label>
-               <input
-               id = 'ingredients'
-               name='ingredients'
-               type='text'
-               value={post.ingredients}
-               onChange = {handleChange}
-               placeholder='Enter ingredients'
-               />
-                <label htmlFor = 'instructions'>instructions</label>
-               <textarea
-               id = 'instructions'
-               name='instructions'
-               type='text'
-               value={post.instructions}
-               onChange = {handleChange}
-               placeholder='Enter instructions'
-               />
-               <Button type='submit' >Add</Button>
-               <Button type='reset' >Cancel</Button>
-           </RecipeForm>
-       
-       </div>
-       
-   )
-=======
     return (
         <div>
             <h2>Write Your Own Recipes</h2>
@@ -184,7 +136,6 @@ const Profile = () => {
             </div>
         </div>
     )
->>>>>>> f722275b9cd6436e8f49cd1741b2bd8203583cdc
 }
 
    

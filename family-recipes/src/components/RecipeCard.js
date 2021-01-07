@@ -1,4 +1,5 @@
 import React from 'react'
+import ViewDetails from './View'
 import '../homepage.css'
 
 const RecipeCard = (props) => {
@@ -11,7 +12,8 @@ const RecipeCard = (props) => {
                     return <div className="recipe-card" key={recipe.id}>
                         <h2>{recipe.title}</h2>
                         {/* <img src="?"/> */}
-                        <button className="recipe-button">View Recipe</button>
+                        <ViewDetails data={recipe}>View Recipe</ViewDetails>
+                        {/* <button className="recipe-button">View Recipe</button> */}
                     </div>
                 })}
             </div>
