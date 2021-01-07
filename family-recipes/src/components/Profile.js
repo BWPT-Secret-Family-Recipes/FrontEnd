@@ -35,13 +35,12 @@ const Button = styled.button`
 
 const Profile = () => {
     const {id} = useParams();
-    console.log(id)
     const [post , setPost] = useState({
         title:'',
         ingredients:'',
         instructions:'',
-        category_id:"",
-        user_id:""
+        category_id:'',
+        user_id: id,
     })
 
     const [userRecipes,setUserRecipes] = useState([])
@@ -54,14 +53,23 @@ const Profile = () => {
         .catch(err => {
             console.log(err)
         })
-    })
+    },[])
 
     const handleChange = e =>{
+         e.persist();
          setPost({...post, [e.target.name]: e.target.value})
         }
 
     const submitForm = e => {
         e.preventDefault();
+        axiosWithAuth().post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
+        .then(res => {
+            console.log('You have created the recipe: ',res)
+            setUserRecipes(...userRecipes,post)
+        })
+        .catch(err => {
+            console.log('You were unable to create the receipe because: ', err.response)
+        })
     } 
     
     //1609913190256
@@ -71,40 +79,10 @@ const Profile = () => {
         <div>
             <h2>Write Your Own Recipes</h2>
             <RecipeForm onSubmit = {submitForm}>
-                <label htmlFor = 'title'>Title</label>
-                <input
-                id = 'title'
-                name='title'
-                type='text'
-                value={post.title}
-                onChange = {handleChange}
-                placeholder='Enter Recipe Name'
-                />
-                 <label htmlFor = 'recipe'>Recipe</label>
-                <textarea
-                id = 'recipe'
-                name='recipe'
-                type='textarea'
-                value={post.recipe}
-                onChange = {handleChange}
-                placeholder='Enter Recipe'
-                />
-                <input
-                id = 'instructions'
-                name='instructions'
-                type='text'
-                value={post.instructions}
-                onChange = {handleChange}
-                placeholder='Enter instructions'
-                />
-                <input
-                id = 'ingredients'
-                name='ingredients'
-                type='text'
-                value={post.ingredients}
-                onChange = {handleChange}
-                placeholder='Enter Recipe Name'
-                />
+                <input type="text" name="title" value={post.title} onChange={handleChange}/>
+                <input type="text" name="ingredients" value={post.ingredients} onChange={handleChange}/>
+                <input type="text" name="instructions" value={post.instructions} onChange={handleChange}/>
+                <input type="number" name="category_id" value={post.category_id} onChange={handleChange}/>
                 <Button type='submit' >Add</Button>
                 <Button type='reset' >Cancel</Button>
             </RecipeForm>
