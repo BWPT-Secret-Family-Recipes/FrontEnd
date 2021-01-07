@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-
+import RecipeModal from './RecipeModal';
 
 
 const RecipeForm = styled.form`
@@ -122,7 +122,7 @@ const Profile = () => {
                 {recipes.map(recipe=>{
                     return <div className="recipe-card" key={recipe.id}>
                         <h2>{recipe.title}</h2>
-                        <button className="recipe-button">Edit Recipe</button>
+                        <RecipeModal data={recipe}>Edit Recipe</RecipeModal>
                         <button className="recipe-button" onClick={e=>{
                             e.stopPropagation();
                             deleteRecipe(recipe)
