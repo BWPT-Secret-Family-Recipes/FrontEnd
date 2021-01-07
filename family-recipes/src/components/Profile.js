@@ -39,6 +39,7 @@ const initialRecipe = {
     category_id:''
 }
 
+
 const Profile = () => {
     const {id} = useParams();
     const [post , setPost] = useState({
@@ -102,7 +103,9 @@ const Profile = () => {
             console.log(err)
         })
     }
-    
+     
+   
+   
 
     return (
         <div>
@@ -135,6 +138,12 @@ const Profile = () => {
     )
 }
 
+   
+
+
+
 
 export default Profile;
+
+
 
