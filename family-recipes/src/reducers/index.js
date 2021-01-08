@@ -31,7 +31,7 @@ export const recipeReducer = (state=initialState, action) => {
             return {
                 ...state,
                 isFetching:false,
-                recipes:action.payload,
+                recipes:[...state.recipes,action.payload],
                 error:''
             }
         default:
