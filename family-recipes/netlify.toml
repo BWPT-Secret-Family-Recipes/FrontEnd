@@ -1,6 +1,6 @@
 [build]
   base = "./family-recipes"
-  publish = "./family-recipes/build"
+  publish = "/build"
   command = "CI= npm run build"
 
 [[redirects]]
