@@ -7,33 +7,24 @@ import RecipeModal from './RecipeModal';
 import icon from '../../src/recipe-icon.svg'
 import {
     Card, CardImg, CardBody,
-    CardTitle, CardSubtitle, 
+    CardTitle, Button 
   } from 'reactstrap';
 
 
 const RecipeForm = styled.form`
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 65%;
     margin: 3rem auto;
     color: #fff;
-    border: 0.2rem solid  #FFD24E;
     padding:0.5rem;
     border-radius: 0.5rem;
 
    
 `
-const Button = styled.button`
-    margin: 0.5rem;
-    box-shadow: none;
-    color: #2a8fd8;
-    font-size: 1.2rem;
-    background-color:#FFD24E;
-    &:hover {
-        background-color:  #065B97;
-    color:white;
-    border: 0.2rem solid white;
-    }
+const Input = styled.input`
+  height: 2rem;
+  margin: 0.5rem 0;
 
 `
 
@@ -109,20 +100,17 @@ const Profile = () => {
         })
     }
     
-   
-   
-   
+  
 
     return (
         <div>
-            <h2>Write Your Own Recipes</h2>
+            <h2 style = {{color: 'white'}}>Write Your Own Recipes</h2>
             <RecipeForm onSubmit = {submitForm}>
-                <input type="text" name="title" value={post.title} onChange={handleChange}/>
-                <input type="text" name="ingredients" value={post.ingredients} onChange={handleChange}/>
-                <input type="text" name="instructions" value={post.instructions} onChange={handleChange}/>
-                <input type="number" name="category_id" value={post.category_id} onChange={handleChange}/>
-                <Button type='submit' >Add</Button>
-                <Button type='reset' >Cancel</Button>
+                <Input type="text" name="title" value={post.title} placeholder="Enter Title" onChange={handleChange}/>
+                <Input type="text" name="ingredients" value={post.ingredients} placeholder="Enter Ingredients" onChange={handleChange}/>
+                <Input type="text" name="instructions" value={post.instructions} placeholder="Enter Instructions" onChange={handleChange}/>
+                <Input type="number" name="category_id" value={post.category_id}  onChange={handleChange}/>
+                <Button color = "light" type='submit' >Add</Button>
             </RecipeForm>
 
             <div className="recipe-container">
@@ -132,14 +120,13 @@ const Profile = () => {
                     return <div className="recipe-card" key={recipe.id}>
                         <Card>
                             <CardImg top width="100%" src={icon} alt="Recipe Card image cap" />
-                            <CardBody>
-                            <CardTitle tag="h2">{recipe.title}</CardTitle>
-                            <CardSubtitle tag="h5" >Created by: {recipe.username}</CardSubtitle>
+                            <CardBody style = {{width: '100%'}}>
+                            <CardTitle tag="h5">{recipe.title}</CardTitle>
                             <RecipeModal data={recipe}>Edit Recipe</RecipeModal>
-                        <button className="recipe-button" onClick={e=>{
+                        <Button color = "light" className="recipe-button" onClick={e=>{
                             e.stopPropagation();
                             deleteRecipe(recipe)
-                        }}>Delete Recipe</button>
+                        }}>Delete Recipe</Button>
 
                             </CardBody>
                         </Card>
