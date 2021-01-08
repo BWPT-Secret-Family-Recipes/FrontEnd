@@ -26,7 +26,7 @@ const Navigation = () => {
                 <NavLink style={{color:'white'}}href="/">Home</NavLink>
                 <NavLink style={{color:'white'}} href="/sign-in">Sign-In</NavLink>
                 <NavLink style={{color:'white'}} href="/register">Register</NavLink>
-                <NavLink style={{color:'white'}} href="/login" onClick={logout}>Log-Out</NavLink>
+                <NavLink style={{color:'white'}} href="/sign-in" onClick={logout}>Log-Out</NavLink>
                 <NavLink style={{color:'white'}} href="/my-profile">my-profile</NavLink>
             </Nav>
         </Navbar>

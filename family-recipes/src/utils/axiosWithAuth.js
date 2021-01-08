@@ -7,7 +7,7 @@ export const axiosWithAuth = () => {
     return axios.create({
         baseURL:"https://ptbw191-secretfamilyrecipes.herokuapp.com",
         headers:{
-            Authorization:token
+            authorization: 'Bearer ' + token
         }
     })
 }
