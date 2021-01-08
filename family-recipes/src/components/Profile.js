@@ -90,6 +90,13 @@ const Profile = (props) => {
         //     console.log('You were unable to create the receipe because: ', err.response)
         // })
         props.addRecipe(post)
+        setPost({
+            title:'',
+            ingredients:'',
+            instructions:'',
+            category_id:'',
+            user_id: id,
+        })
     } 
     
     //1609913190256
