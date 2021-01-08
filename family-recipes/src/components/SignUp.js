@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
+import {useHistory} from 'react-router-dom';
 
 //https://ptbw191-secretfamilyrecipes.herokuapp.com/
 
@@ -23,9 +24,12 @@ const SignUp = () => {
         password:''
     })
 
+    const history = useHistory();
+
     const [err, setErr] = useState('')
 
     const handleChanges = (e) => {
+        e.persist();
         setUserInfo({
             ...userInfo,[e.target.name]:e.target.value
         })
@@ -41,6 +45,13 @@ const SignUp = () => {
             console.log('ol: SignUp.js err response', err.response)
             setErr(err.response)
         })
+        setUserInfo({
+            username:'',
+            email:'',
+            password:''
+        })
+
+        history.push('/sign-in')
     }
 
     return (

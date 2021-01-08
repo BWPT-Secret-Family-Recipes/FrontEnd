@@ -72,7 +72,7 @@ const Profile = (props) => {
             const recipes = props.userRecipes(id)
         }
         fetchRecipes()
-    },[recipes])
+    },[props.recipes])
 
     const handleChange = e =>{
          e.persist();
