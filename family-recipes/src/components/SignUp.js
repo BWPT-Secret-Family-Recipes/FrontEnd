@@ -50,6 +50,8 @@ const SignUp = () => {
             email:'',
             password:''
         })
+
+        history.push('/sign-in')
     }
 
     return (
