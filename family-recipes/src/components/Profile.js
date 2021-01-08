@@ -37,7 +37,7 @@ const initialRecipe = {
 }
 
 
-const Profile = () => {
+const Profile = (props) => {
     const {id} = useParams();
     const [post , setPost] = useState({
         title:'',
@@ -66,6 +66,13 @@ const Profile = () => {
     //     fetchRecipes()
     // },[recipes])
 
+    useEffect(()=>{
+        const fetchRecipes = async () => {
+            const recipes = props.userRecipes(id)
+        }
+        fetchRecipes()
+    },[])
+
     const handleChange = e =>{
          e.persist();
          setPost({...post, [e.target.name]: e.target.value})
@@ -73,14 +80,15 @@ const Profile = () => {
 
     const submitForm = e => {
         e.preventDefault();
-        axios.post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
-        .then(res => {
-            console.log('You have created the recipe: ',res)
-            setUserRecipes(...userRecipes,post)
-        })
-        .catch(err => {
-            console.log('You were unable to create the receipe because: ', err.response)
-        })
+        // axios.post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
+        // .then(res => {
+        //     console.log('You have created the recipe: ',res)
+        //     setUserRecipes(...userRecipes,post)
+        // })
+        // .catch(err => {
+        //     console.log('You were unable to create the receipe because: ', err.response)
+        // })
+        props.addRecipe(...props.recipes,post)
     } 
     
     //1609913190256
@@ -89,7 +97,7 @@ const Profile = () => {
         // /api/recipe/:id
         axios.delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
         .then(res=>{
-            setRecipes(recipes.filter(recipe=>{
+            setRecipes(props.recipes.filter(recipe=>{
                 if(recipe.id !== recipeToEdit.id){
                     return recipe
                 }
@@ -117,7 +125,7 @@ const Profile = () => {
             <div className="recipe-container">
             <h1 style={{color:'white'}}>View Your Recipes</h1>
             <div className="row_recipes">
-                {recipes.map(recipe=>{
+                {props.recipes.map(recipe=>{
                     return <div className="recipe-card" key={recipe.id}>
                         <Card>
                             <CardImg top width="100%" src={icon} alt="Recipe Card image cap" />
