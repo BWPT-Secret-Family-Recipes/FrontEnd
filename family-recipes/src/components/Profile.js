@@ -90,6 +90,7 @@ const Profile = (props) => {
         //     console.log('You were unable to create the receipe because: ', err.response)
         // })
         props.addRecipe(post)
+        setRecipes(...recipes,post)
     } 
     
     //1609913190256
@@ -127,7 +128,7 @@ const Profile = (props) => {
             <div className="recipe-container">
             <h1 style={{color:'white'}}>View Your Recipes</h1>
             <div className="row_recipes">
-                {props.recipes.map(recipe=>{
+                {recipes.map(recipe=>{
                     return <div className="recipe-card" key={recipe.id}>
                         <Card>
                             <CardImg top width="100%" src={icon} alt="Recipe Card image cap" />
