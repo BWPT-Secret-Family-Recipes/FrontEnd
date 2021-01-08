@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
-import {axiosWithAuth} from '../utils/axiosWithAuth';
+import {connect} from 'react-redux'
+import {addRecipe,userRecipes} from '../actions/index'
 import RecipeModal from './RecipeModal';
 import icon from '../../src/recipe-icon.svg'
 import {
@@ -52,18 +53,18 @@ const Profile = () => {
 
     const[recipeToEdit,setRecipeToEdit]= useState(initialRecipe)
 
-    useEffect( ()=>{ 
-        const fetchRecipes = async() => {
-            const recipes = await axiosWithAuth().get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/users/${id}/recipes`)
-            .then(res=>{
-                setRecipes(res.data)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-        }
-        fetchRecipes()
-    },[recipes])
+    // useEffect( ()=>{ 
+    //     const fetchRecipes = async() => {
+    //         const recipes = await axiosWithAuth().get(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/users/${id}/recipes`)
+    //         .then(res=>{
+    //             setRecipes(res.data)
+    //         })
+    //         .catch(err=>{
+    //             console.log(err)
+    //         })
+    //     }
+    //     fetchRecipes()
+    // },[recipes])
 
     const handleChange = e =>{
          e.persist();
@@ -72,7 +73,7 @@ const Profile = () => {
 
     const submitForm = e => {
         e.preventDefault();
-        axiosWithAuth().post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
+        axios.post('https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe',post)
         .then(res => {
             console.log('You have created the recipe: ',res)
             setUserRecipes(...userRecipes,post)
@@ -86,7 +87,7 @@ const Profile = () => {
 
     const deleteRecipe = (recipe) => {
         // /api/recipe/:id
-        axiosWithAuth().delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
+        axios.delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
         .then(res=>{
             setRecipes(recipes.filter(recipe=>{
                 if(recipe.id !== recipeToEdit.id){
@@ -141,12 +142,16 @@ const Profile = () => {
     )
 }
 
-   
 
+const mapStateToProps = state => {
+    return {
+        recipes:state.recipes,
+        isLoading:state.isLoading,
+        error:state.error
+    }
+}
 
-
-
-export default Profile;
+export default connect(mapStateToProps,{userRecipes,addRecipe})(Profile)
 
 
 

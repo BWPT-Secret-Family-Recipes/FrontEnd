@@ -27,6 +27,13 @@ export const recipeReducer = (state=initialState, action) => {
                 isLoading:false,
                 error:action.payload.message
             }
+        case POST_DATA:
+            return {
+                ...state,
+                isFetching:false,
+                recipes:action.payload,
+                error:''
+            }
         default:
             return state
     }
