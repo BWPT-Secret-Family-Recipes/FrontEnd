@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {addRecipe,userRecipes} from '../actions/index'
 import RecipeModal from './RecipeModal';
 import icon from '../../src/recipe-icon.svg'
@@ -10,6 +10,7 @@ import {
     Card, CardImg, CardBody,
     CardTitle, Button 
   } from 'reactstrap';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 const RecipeForm = styled.form`
@@ -49,7 +50,7 @@ const Profile = (props) => {
 
     const [userRecipes,setUserRecipes] = useState([])
 
-    const [recipes,setRecipes]= useState([])
+    const [recipes,setRecipes]= useState(props.recipes)
 
     const[recipeToEdit,setRecipeToEdit]= useState(initialRecipe)
 
@@ -71,7 +72,7 @@ const Profile = (props) => {
             const recipes = props.userRecipes(id)
         }
         fetchRecipes()
-    },[])
+    },[recipes])
 
     const handleChange = e =>{
          e.persist();
@@ -88,16 +89,17 @@ const Profile = (props) => {
         // .catch(err => {
         //     console.log('You were unable to create the receipe because: ', err.response)
         // })
-        props.addRecipe(...props.recipes,post)
+        props.addRecipe(post)
     } 
     
     //1609913190256
 
     const deleteRecipe = (recipe) => {
         // /api/recipe/:id
-        axios.delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
+        axiosWithAuth().delete(`https://ptbw191-secretfamilyrecipes.herokuapp.com/api/recipe/${recipe.id}`)
         .then(res=>{
-            setRecipes(props.recipes.filter(recipe=>{
+            console.log(res)
+            setRecipes(recipes.filter(recipe=>{
                 if(recipe.id !== recipeToEdit.id){
                     return recipe
                 }
