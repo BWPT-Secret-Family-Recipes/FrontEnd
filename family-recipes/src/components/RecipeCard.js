@@ -3,7 +3,7 @@ import ViewDetails from './View'
 import icon from '../../src/recipe-icon.svg'
 import {
     Card, CardImg, CardBody,
-    CardTitle, CardSubtitle, 
+    CardTitle, 
   } from 'reactstrap';
 import '../homepage.css'
 
@@ -20,7 +20,7 @@ const RecipeCard = (props) => {
                             <CardBody>
                             <CardTitle tag="h5">{recipe.title}</CardTitle>
                             {/* <CardSubtitle tag="h6" >Created by: {recipe.username}</CardSubtitle> */}
-                            <ViewDetails className="view-button" data={recipe}>View Recipe</ViewDetails>
+                           <ViewDetails className="view-button" data={recipe}>View Recipe</ViewDetails>
                             </CardBody>
                         </Card>
                         {/* <h2>{recipe.title}</h2> */}
